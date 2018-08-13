@@ -4,9 +4,15 @@ let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3001;
+let GreetingsFactory = require('./GreetFactory');
+let greetings = GreetingsFactory();
+
 let fullPage = {
     userData: {
-        name: 'Hello World!'
+        greeting: 'Hello World!'
+    },
+    other: {
+        counter: 0
     }
 }
 
@@ -37,8 +43,14 @@ app.get('', function (req, res) {
 });
 
 app.post('/greet', function (req, res) {
-    fullPage.userData.name = req.body.userEnteredName;
-    console.log(req.body.radioLang);
+    // let nameFromForm = ;
+    // let radioLangSelected = ;
+    let greetData = {
+        name: req.body.userEnteredName,
+        lang: req.body.radioLang
+    };
+    fullPage.userData.greeting = greetings.greetNow(greetData);
+    fullPage.other.counter++;
     res.redirect('/');
 });
 

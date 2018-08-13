@@ -1,6 +1,6 @@
 <div class="row center">
     <div class="col-12">
-        <h1 id="displayName">{{this.userData.name}}</h1>
+        <h1 id="displayName">{{this.userData.greeting}}</h1>
     </div>
 
 </div>
@@ -10,7 +10,14 @@
     <div class="col-6 center">
         <form id="userInput" method="POST" action="/greet">
             <input id="inputBox" name="userEnteredName" type="" placeholder="Type in your name here" pattern="[a-zA-Z]+" title="Please enter only letters A-Z">
-
+            <div class=" col-12 radio-toolbar">
+                <input type="radio" name="radioLang" value="English" id="1">
+                <label for="1"> English</label>
+                <input type="radio" name="radioLang" value="Zulu" id="2">
+                <label for="2">isiZulu</label>
+                <input type="radio" name="radioLang" value="Tsonga" id="3">
+                <label for="3">xiTsonga</label>
+            </div>
         </form>
     </div>
     <div class="col-3"></div>
@@ -18,14 +25,7 @@
 
 <div class="row center">
     <!--            <div class="col-4"></div>-->
-    <div class=" col-12 radio-toolbar">
-        <input type="radio" name="radioLang" value="English" id="1">
-        <label for="1"> English</label>
-        <input type="radio" name="radioLang" value="Zulu" id="2">
-        <label for="2">isiZulu</label>
-        <input type="radio" name="radioLang" value="Tsonga" id="3">
-        <label for="3">xiTsonga</label>
-    </div>
+
     <!--            <div class="col-4"></div>-->
 </div>
 
@@ -36,7 +36,7 @@
     <div class="col-6" id="counterAndResetBox">
         <p class="">
             <strong>Counter : &nbsp;
-                <span id="countNumber">0</span>
+                <span id="countNumber">{{this.other.counter}}</span>
             </strong>
         </p>
         <button id="resetBtn">Reset</button>
