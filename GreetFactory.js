@@ -1,10 +1,11 @@
 // the greetings factory function 
 
-module.exports = function () {
+module.exports = function (greetData) {
 
-    let greetNow = function (greetData) {
+    let greetNow = function () {
         let inputName = greetData.name;
         let language = greetData.lang;
+
 
         //fix the format of the name
         inputName = inputName.toLowerCase();
@@ -60,7 +61,7 @@ module.exports = function () {
     //factory returns
 
     return {
-        greetNow,
+        greet: greetNow()
     }
 
 
