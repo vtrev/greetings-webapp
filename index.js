@@ -58,8 +58,8 @@ app.post('/greet', function (req, res) {
 
 
 
-//SERVER FIRE 
-const server = app.listen(process.env.PORT || 3000);
+//FIRE TO THE SERVER  
+
 app.listen(PORT, function () {
     console.log('starting greetings-webapp on port : ', PORT)
 });
