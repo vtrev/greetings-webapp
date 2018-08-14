@@ -4,8 +4,13 @@ let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3001;
-let GreetingsFactory = require('./GreetFactory');
-let greetings = GreetingsFactory();
+
+//change the greetings into GreetingsFactory 
+
+
+let greetings = require('./GreetFactory');
+//remove this this line
+// let greetings = GreetingsFactory();
 
 let fullPage = {
     userData: {
@@ -49,7 +54,7 @@ app.post('/greet', function (req, res) {
         name: req.body.userEnteredName,
         lang: req.body.radioLang
     };
-    fullPage.userData.greeting = greetings.greetNow(greetData);
+    fullPage.userData.greeting = greetings(greetData).greet;
     fullPage.other.counter++;
     res.redirect('/');
 });
