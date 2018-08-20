@@ -49,23 +49,28 @@ app.get('/', function (req, res) {
     res.render('home', fullPage);
 });
 
+// add to fullpage the object with the counter info
+// and connect to handlebars
 
 
-// app.get('', function (req, res) {
-//     let userName = req.params.greetName;
-//     res.send('you are : ' + userName);
+app.get('/counter', function (req, res) {
+    res.render('counter', fullPage);
+
+    // let userName = req.params.greetName;
+    // res.send('you are : ' + userName);
 
 
-// });
+});
 app.get('/greeted', function (req, res) {
     fullPage.greetedUsers = greetings.namesGreeted;
     res.redirect('/')
 });
-// app.get('greeted/:user', function (req, res) {
-//     let userName = req.params.userName;
-//     let userCountData = greetings.userSpecCounter(userName);
-//     fullPage.greetedUsers = userCountData;
-// });
+app.get('greeted/:user', function (req, res) {
+    let userName = req.params.userName;
+    let userCountData = greetings.userSpecCounter(userName);
+    fullPage.greetedUsers = userCountData;
+    // res.render('/counter');
+});
 
 app.post('/greet', function (req, res) {
 
