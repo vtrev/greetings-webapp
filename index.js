@@ -1,20 +1,16 @@
-// DECLARATIONS
+'use strict';
+
+
+
 let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3001;
 let session = require('express-session');
-
 const flash = require('express-flash');
 let greetingsModule = require('./GreetFactory');
-//change the greetings into GreetingsFactory 
-
 let greetings = greetingsModule();
-
-
-//remove this this line
-// let greetings = GreetingsFactory();
 
 let fullPage = {
     userData: {
@@ -25,6 +21,7 @@ let fullPage = {
     },
     greetedUsers: []
 }
+
 app.use(session({
     secret: '123'
 }));
@@ -44,7 +41,6 @@ app.use(bodyParser.urlencoded({
 
 
 // Routes
-// Get Routes
 app.get('/', function (req, res) {
     res.render('home', fullPage);
 });
@@ -61,10 +57,12 @@ app.get('/', function (req, res) {
 
 
 // });
+
 app.get('/greeted', function (req, res) {
     fullPage.greetedUsers = greetings.namesGreeted;
     res.render('greeted',fullPage);
 });
+
 app.get('/counter/:user', function (req, res) {
     let userName = req.params.user;
     let userCountData = greetings.userSpecCounter(userName);
@@ -92,6 +90,7 @@ app.post('/greet', function (req, res) {
     // }
 
 });
+
 //FIRE TO THE SERVER  
 
 app.listen(PORT, function () {
