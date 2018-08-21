@@ -21,7 +21,7 @@ body {
 
 * {
   font-family: 'Lato', Helvetica, sans-serif;
-  color: #333447;
+  /* color: #333447; */
   line-height: 1.5;
 }
 
@@ -296,6 +296,21 @@ p {
 
 /* ==========================Custom CSS here ===========================================*/
 
+.greeted a {
+  text-decoration: none;
+  font-size: 26px;
+  /* color: lime; */
+}
+
+.greeted a:hover {
+  font-size: 30px;
+  color: lime;
+}
+
+.greeted hr {
+  width: 350px;
+}
+
 .center {
   text-align: center;
 }
@@ -358,7 +373,7 @@ button:active {
   height: 100px;
 }
 
-.block {
+.in-block {
   display: inline-block;
 }
 
@@ -401,4 +416,27 @@ button:active {
 .radio-toolbar input[type="radio"]:checked+label {
   background-color: darkturquoise;
   border-color: black;
+}
+
+/* Product card */
+
+.user-card {
+  height: 400px;
+  width: 300px;
+  background: rgb(215, 214, 223);
+  border: 1px solid rgb(62, 62, 63);
+  border-radius: 25px;
+  padding-top: 30px;
+}
+
+.card-top {
+  height: 30%;
+  font-size: 120px;
+  padding-bottom: 50px;
+}
+
+.card-bottom {
+  font-size: px;
+  font-family: 'Share Tech Mono', monospace;
+  text-transform: uppercase;
 }

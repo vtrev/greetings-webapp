@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
@@ -60,14 +58,14 @@ app.get('/', function (req, res) {
 
 app.get('/greeted', function (req, res) {
     fullPage.greetedUsers = greetings.namesGreeted;
-    res.render('greeted',fullPage);
+    res.render('greeted', fullPage);
 });
 
 app.get('/counter/:user', function (req, res) {
     let userName = req.params.user;
     let userCountData = greetings.userSpecCounter(userName);
     fullPage.greetedUsers = userCountData;
-    res.render('counter',fullPage);
+    res.render('counter', fullPage);
 });
 
 app.post('/greet', function (req, res) {

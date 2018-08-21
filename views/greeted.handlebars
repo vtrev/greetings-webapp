@@ -1,8 +1,12 @@
-<div class="row">
-    <div class="col-12">
-        <h3>greeted users</h3>
+<div class="row center">
+    <div class="col-12 greeted in-block">
+        <h2>Greeted Users</h2>
         {{#each this.greetedUsers}}
-<a href="/counter/{{this.name}}"><li>{{this.name}}</li></a>
-        {{/each}}
+        <a href="/counter/{{this.name}}">
+            <li>{{this.name}}&nbsp&nbsp&nbsp
+                <i class="far fa-check-circle check"></i>
+            </li>
+        </a>
+        <hr> {{/each}}
     </div>
 </div>
