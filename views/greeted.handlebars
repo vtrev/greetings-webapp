@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-12">
+        <h3>greeted users</h3>
+        {{#each this.greetedUsers}}
+<a href="/counter/{{this.name}}"><li>{{this.name}}</li></a>
+        {{/each}}
+    </div>
+</div>

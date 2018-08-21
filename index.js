@@ -53,23 +53,23 @@ app.get('/', function (req, res) {
 // and connect to handlebars
 
 
-app.get('/counter', function (req, res) {
-    res.render('counter', fullPage);
+// app.get('/counter', function (req, res) {
+//     res.render('counter', fullPage);
 
-    // let userName = req.params.greetName;
-    // res.send('you are : ' + userName);
+//     // let userName = req.params.greetName;
+//     // res.send('you are : ' + userName);
 
 
-});
+// });
 app.get('/greeted', function (req, res) {
     fullPage.greetedUsers = greetings.namesGreeted;
-    res.redirect('/')
+    res.render('greeted',fullPage);
 });
-app.get('greeted/:user', function (req, res) {
-    let userName = req.params.userName;
+app.get('/counter/:user', function (req, res) {
+    let userName = req.params.user;
     let userCountData = greetings.userSpecCounter(userName);
     fullPage.greetedUsers = userCountData;
-    // res.render('/counter');
+    res.render('counter',fullPage);
 });
 
 app.post('/greet', function (req, res) {
@@ -77,6 +77,8 @@ app.post('/greet', function (req, res) {
     greetings.name(req.body.userEnteredName);
     greetings.language(req.body.radioLang);
     fullPage.userData.greeting = greetings.greet();
+    fullPage.other.counter = greetings.namesGreeted.length;
+
     fullPage.greetedUsers = greetings.namesGreeted;
 
     res.redirect('/');
