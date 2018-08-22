@@ -5,7 +5,7 @@ let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3001;
-let session = require('express-session');
+// let session = require('express-session');
 const flash = require('express-flash');
 let greetingsModule = require('./GreetFactory');
 let greetings = greetingsModule();
@@ -19,7 +19,7 @@ let fullPage = {
     },
     greetedUsers: []
 }
-// DB
+// DB Setup
 
 let connectionString = process.env.DATABASE_URL || 'postgres://coder:8423@127.0.0.1:5432/greetings';
 
@@ -27,20 +27,11 @@ const {
     Client
 } = require('pg');
 
-// let dbClient = new pg.Client(connectionString);
-// dbClient.connect();
+// app.use(session({
+//     secret: '123'
+// }));
 
-
-
-
-
-
-
-app.use(session({
-    secret: '123'
-}));
-
-app.use(flash());
+// app.use(flash());
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main',
@@ -73,8 +64,22 @@ app.get('/', function (req, res) {
 // });
 
 app.get('/greeted', function (req, res) {
-    fullPage.greetedUsers = greetings.namesGreeted;
-    res.render('greeted', fullPage);
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    client.connect()
+        .then(() => {
+            const sql = 'SELECT name FROM USERS';
+            return client.query(sql);
+        })
+        .then((result) => {
+            fullPage.greetedUsers = result.rows;
+            res.render('greeted', fullPage);
+
+            console.log(result);
+        });
+
+    //  = greetings.namesGreeted;
 });
 
 app.get('/counter/:user', function (req, res) {
@@ -85,28 +90,28 @@ app.get('/counter/:user', function (req, res) {
 });
 
 app.post('/greet', function (req, res) {
-    console.log('body : ', req.body);
-
     const client = new Client({
         connectionString: connectionString,
     });
     client.connect()
         .then(() => {
-            console.log('connection complete');
+            console.log('connected to database successfully');
 
             //query here
             const sql = 'INSERT INTO users(name) VALUES ($1)';
             const params = [req.body.userEnteredName];
             return client.query(sql, params);
         })
-        .then(() => {
-            (result) => {
-                console.log('results ', result);
-            }
+
+
+
+        .then((result) => {
+
+            console.log('results :', result.rows);
         });
+    // .then(() => {
 
-
-
+    // })
 
     greetings.name(req.body.userEnteredName);
     greetings.language(req.body.radioLang);
