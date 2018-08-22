@@ -19,6 +19,22 @@ let fullPage = {
     },
     greetedUsers: []
 }
+// DB
+
+let connectionString = process.env.DATABASE_URL || 'postgres://coder:8423@127.0.0.1:5432/greetings';
+
+const {
+    Client
+} = require('pg');
+
+// let dbClient = new pg.Client(connectionString);
+// dbClient.connect();
+
+
+
+
+
+
 
 app.use(session({
     secret: '123'
@@ -69,6 +85,28 @@ app.get('/counter/:user', function (req, res) {
 });
 
 app.post('/greet', function (req, res) {
+    console.log('body : ', req.body);
+
+    const client = new Client({
+        connectionString: connectionString,
+    });
+    client.connect()
+        .then(() => {
+            console.log('connection complete');
+
+            //query here
+            const sql = 'INSERT INTO users(name) VALUES ($1)';
+            const params = [req.body.userEnteredName];
+            return client.query(sql, params);
+        })
+        .then(() => {
+            (result) => {
+                console.log('results ', result);
+            }
+        });
+
+
+
 
     greetings.name(req.body.userEnteredName);
     greetings.language(req.body.radioLang);
