@@ -1,9 +1,42 @@
-module.exports = function () {
+module.exports = function (client) {
+
+    let namesGreeted = [];
+    let setNames = function(namesData){
+        namesGreeted = namesData;
+    }
+
+    client.connect()
+    // check client.end
+    .then(() => {
+        console.log('connected to database successfully');
+
+        //query here
+        const sql = 'SELECT * from users';
+        // const params = [req.body.userEnteredName];
+        return client.query(sql);
+
+    })
+    .then((result) => {
+        console.log(result);
+        // set namesGreeted to result
+        setNames(result);
+
+
+        // let namesFromDb = result.rows;
+        // greetings.setNames(namesFromDb);
+        // greetings.counter(userEnteredName);
+    });
+
+    
+    
+    
+    
+
     let greetData = {
         name: '',
         lang: ''
     };
-    let namesGreeted = [];
+    // let  = [];
     let setName = function (name) {
         greetData.name = name;
     }
@@ -13,7 +46,9 @@ module.exports = function () {
 
     //fix the format of the name
     let fixName = function (inputName) {
-        inputName = inputName.toLowerCase();
+        console.log('name to fix : '+inputName)
+
+        inputName = inputName.toString().toLowerCase();
         let tmpString = inputName.substr(1, inputName.length);
         let firstCh = inputName.charAt(0).toUpperCase();
         let correctName = firstCh + tmpString;
@@ -50,24 +85,34 @@ module.exports = function () {
 
     // function that counts the number of times a user has been greeted
     let counter = function (name) {
+
+
         name = fixName(name);
 
         let namesLength = namesGreeted.length;
 
         if (namesLength == 0) {
+            // insert the name to the database
+            //counter set to 1
+        
             namesGreeted.push(createUser(name));
         } else if (!namesGreeted.some(function (storedNames) {
                 return storedNames.name === name
             })) {
+                //callthe create user function and store name on database 
             namesGreeted.push(createUser(name));
 
         } else {
+            // select name and update count and increase the counter 
             for (let i = 0; i < namesGreeted.length; i++) {
                 if (namesGreeted[i].name == name) {
                     namesGreeted[i].count++;
                 }
             }
         }
+        
+        //sync the greeted names with the ones on the DB
+    
         // return namesGreeted;
     };
 
@@ -86,7 +131,7 @@ module.exports = function () {
         counter,
         greetData,
         namesGreeted,
-        userSpecCounter
+        userSpecCounter,setNames
 
     }
 

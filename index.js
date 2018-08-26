@@ -4,11 +4,11 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
-let PORT = process.env.PORT || 3001;
+let PORT = process.env.PORT ||3030 ;
 // let session = require('express-session');
 const flash = require('express-flash');
 let greetingsModule = require('./GreetFactory');
-let greetings = greetingsModule();
+
 
 let fullPage = {
     userData: {
@@ -21,11 +21,16 @@ let fullPage = {
 }
 // DB Setup
 
-let connectionString = process.env.DATABASE_URL || 'postgres://coder:8423@127.0.0.1:5432/greetings';
+let connectionString = process.env.DATABASE_URL || 'postgres://vusi:8423@192.168.0.102:5432/greetings';
 
 const {
     Client
 } = require('pg');
+const client = new Client({
+    connectionString: connectionString,
+});
+let greetings = greetingsModule(client);
+
 
 // app.use(session({
 //     secret: '123'
@@ -64,9 +69,8 @@ app.get('/', function (req, res) {
 // });
 
 app.get('/greeted', function (req, res) {
-    const client = new Client({
-        connectionString: connectionString,
-    });
+
+    
     client.connect()
         .then(() => {
             const sql = 'SELECT name FROM USERS';
@@ -90,26 +94,21 @@ app.get('/counter/:user', function (req, res) {
 });
 
 app.post('/greet', function (req, res) {
-    const client = new Client({
-        connectionString: connectionString,
-    });
-    client.connect()
-        .then(() => {
-            console.log('connected to database successfully');
+    // let  userEnteredName = [req.body.userEnteredName];
 
-            //query here
-            const sql = 'INSERT INTO users(name) VALUES ($1)';
-            const params = [req.body.userEnteredName];
-            return client.query(sql, params);
-        })
+    
+    //         .then(()=>{
+            
 
+    //         const sql = 'INSERT INTO users(name) VALUES ($1)';
+    //         const params = [req.body.userEnteredName];
+    //         return client.query(sql, params);
+    //     });
 
+    greetings();
 
-        .then((result) => {
-
-            console.log('results :', result.rows);
-        });
-    // .then(() => {
+       
+    // // .then(() => {
 
     // })
 
