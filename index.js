@@ -4,7 +4,7 @@ let bodyParser = require('body-parser');
 let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
-let PORT = process.env.PORT ||3030 ;
+let PORT = process.env.PORT || 3030;
 // let session = require('express-session');
 const flash = require('express-flash');
 let greetingsModule = require('./GreetFactory');
@@ -21,15 +21,19 @@ let fullPage = {
 }
 // DB Setup
 
-let connectionString = process.env.DATABASE_URL || 'postgres://vusi:8423@192.168.0.102:5432/greetings';
+// let connectionString = process.env.DATABASE_URL || 'postgres://vusi:8423@192.168.0.38:5432/greetings';
 
 const {
-    Client
+    Pool
 } = require('pg');
-const client = new Client({
-    connectionString: connectionString,
+const pool = new Pool({
+    user: 'vusi',
+    host: '192.168.0.38',
+    database: 'greetings',
+    password: '8423',
+    port: 5432
 });
-let greetings = greetingsModule(client);
+let greetings = greetingsModule(pool);
 
 
 // app.use(session({
@@ -70,65 +74,36 @@ app.get('/', function (req, res) {
 
 app.get('/greeted', function (req, res) {
 
-    
-    client.connect()
-        .then(() => {
-            const sql = 'SELECT name FROM USERS';
-            return client.query(sql);
-        })
-        .then((result) => {
-            fullPage.greetedUsers = result.rows;
-            res.render('greeted', fullPage);
+    greetings.greeted('allUsers').then((res) => {
+        console.log(res);
+        fullPage.greetedUsers = res;
+    })
+    res.render('greeted', fullPage);
 
-            console.log(result);
-        });
 
     //  = greetings.namesGreeted;
 });
 
 app.get('/counter/:user', function (req, res) {
     let userName = req.params.user;
-    let userCountData = greetings.userSpecCounter(userName);
-    fullPage.greetedUsers = userCountData;
+
+    greetings.greeted(userName).then((res) => {
+        console.log(res);
+        fullPage.greetedUsers = res
+    })
     res.render('counter', fullPage);
 });
 
 app.post('/greet', function (req, res) {
-    // let  userEnteredName = [req.body.userEnteredName];
-
-    
-    //         .then(()=>{
-            
-
-    //         const sql = 'INSERT INTO users(name) VALUES ($1)';
-    //         const params = [req.body.userEnteredName];
-    //         return client.query(sql, params);
-    //     });
-
-    greetings();
-
-       
-    // // .then(() => {
-
-    // })
-
     greetings.name(req.body.userEnteredName);
     greetings.language(req.body.radioLang);
-    fullPage.userData.greeting = greetings.greet();
-    fullPage.other.counter = greetings.namesGreeted.length;
-
+    greetings.greet();
+    fullPage.userData.greeting = greetings.greetData.greeting;
+    greetings.counter().then((res) => {
+        fullPage.other.counter = res;
+    });
     fullPage.greetedUsers = greetings.namesGreeted;
-
     res.redirect('/');
-
-
-    // if (req.body.userEnteredName == '') {
-    //     req.flash('info', 'Please type in your name and select a lanuage first');
-    // } else {
-    //     fullPage.other.counter++;
-    //     res.redirect('/');
-    // }
-
 });
 
 //FIRE TO THE SERVER  
