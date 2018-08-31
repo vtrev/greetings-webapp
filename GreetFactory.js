@@ -25,6 +25,22 @@ module.exports = function (client) {
         greetData.lang = language;
     }
     //greet a user given name and language
+    let greetNow = function (name, language) {
+        console.log(name, language)
+        //return a greeting based on the given language
+        if (language === 'English') {
+            greetData.greeting = 'Hello ' + name + '!';
+        };
+        if (language === 'Zulu') {
+
+            greetData.greeting = 'Saubona ' + name + '!';
+        };
+
+        if (language === 'Tsonga') {
+
+            greetData.greeting = 'Avuxeni ' + name + '!';
+        };
+    }
     let greetUser = function () {
         let name = greetData.name;
         let language = greetData.lang;
@@ -51,20 +67,8 @@ module.exports = function (client) {
                 }
             })
             .catch((err) => console.error(err))
+        return greetNow(name, language);
 
-        //return a greeting based on the given language
-        if (language === 'English') {
-            greetData.greeting = 'Hello ' + name + '!'
-        };
-        if (language === 'Zulu') {
-
-            greetData.greeting = 'Saubona ' + name + '!'
-        };
-
-        if (language === 'Tsonga') {
-
-            greetData.greeting = 'Avuxeni ' + name + '!'
-        };
     };
     // function that counts the number of times a user has been greeted
 
@@ -79,6 +83,8 @@ module.exports = function (client) {
         if (name == 'allUsers') {
             return client.query('SELECT * FROM users')
                 .then((result) => {
+
+                    console.log(result.rows);
                     return result.rows
                 })
                 .catch((err) => console.error(err))

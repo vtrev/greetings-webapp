@@ -16,8 +16,7 @@ let fullPage = {
     },
     other: {
         counter: 0
-    },
-    greetedUsers: []
+    }
 }
 // DB Setup
 
@@ -27,8 +26,8 @@ const {
     Pool
 } = require('pg');
 const pool = new Pool({
-    user: 'vusi',
-    host: '192.168.0.38',
+    user: 'coder',
+    host: '127.0.0.1',
     database: 'greetings',
     password: '8423',
     port: 5432
@@ -52,7 +51,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-
 // Routes
 app.get('/', function (req, res) {
     res.render('home', fullPage);
@@ -61,9 +59,9 @@ app.get('/', function (req, res) {
 app.get('/greeted', function (req, res) {
 
     greetings.greeted('allUsers').then((result) => {
-
-            res.render('greeted', result);
-
+            res.render('greeted', {
+                'users': result
+            });
         })
         .catch((err) => console.error(err))
 });
@@ -82,10 +80,11 @@ app.post('/greet', function (req, res) {
     greetings.language(req.body.radioLang);
     greetings.greet();
     fullPage.userData.greeting = greetings.greetData.greeting;
+
     greetings.counter().then((result) => {
+            console.log(result);
             fullPage.other.counter = result;
             fullPage.greetedUsers = greetings.namesGreeted;
-            // res.render('home', result);
             res.redirect('/');
         })
         .catch((err) => console.error(err))
@@ -96,5 +95,3 @@ app.post('/greet', function (req, res) {
 app.listen(PORT, function () {
     console.log('greetings-webapp listening on port : ', PORT)
 });
-
-//
