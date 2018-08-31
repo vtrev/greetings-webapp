@@ -1,9 +1,9 @@
 <div class="row center">
     <div class="col-12 greeted in-block">
         <h2>Greeted Users</h2>
-        {{#each this.greetedUsers}}
-        <a href="/counter/{{this.username}}">
-            <li>{{this.username}}&nbsp&nbsp&nbsp
+        {{#each this}}
+        <a href="/counter/{{username}}">
+            <li>{{username}}&nbsp&nbsp&nbsp
                 <i class="far fa-check-circle check"></i>
             </li>
         </a>

@@ -29,16 +29,12 @@ module.exports = function (client) {
         let name = greetData.name;
         let language = greetData.lang;
 
-
         client.connect()
             .then(() => {
-                console.log('connected to database successfully');
+                console.log('client connected to database successfully');
                 const sql = 'SELECT id FROM users WHERE username=$1';
                 const params = [name];
-                // const params = [req.body.userEnteredName];
-                // return
                 return client.query(sql, params);
-                // console.log(data);
 
             })
             .then((result) => {
@@ -52,7 +48,6 @@ module.exports = function (client) {
                     const sql = 'UPDATE users SET greet_count = greet_count+1 WHERE username=$1';
                     const params = [name];
                     client.query(sql, params);
-
                 }
             })
             .catch((err) => console.error(err))
@@ -86,18 +81,17 @@ module.exports = function (client) {
                 .then((result) => {
                     return result.rows
                 })
-        } else {
+                .catch((err) => console.error(err))
 
+        } else {
             return client.query('SELECT * FROM users WHERE username=$1', [name])
                 .then((result) => {
-                    return result.rows
+                    console.log(result.rows)
+                    return result.rows[0]
                 })
-
-        }
-
-
-
-    }
+                .catch((err) => console.error(err));
+        };
+    };
 
     return {
         language: setLang,
@@ -109,7 +103,9 @@ module.exports = function (client) {
         namesGreeted,
         greeted
 
-    }
+    };
 
 
-}
+};
+
+//

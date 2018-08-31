@@ -47,7 +47,6 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 app.use('/', express.static(__dirname + '/public'));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
@@ -59,39 +58,23 @@ app.get('/', function (req, res) {
     res.render('home', fullPage);
 });
 
-// add to fullpage the object with the counter info
-// and connect to handlebars
-
-
-// app.get('/counter', function (req, res) {
-//     res.render('counter', fullPage);
-
-//     // let userName = req.params.greetName;
-//     // res.send('you are : ' + userName);
-
-
-// });
-
 app.get('/greeted', function (req, res) {
 
-    greetings.greeted('allUsers').then((res) => {
-        console.log(res);
-        fullPage.greetedUsers = res;
-    })
-    res.render('greeted', fullPage);
+    greetings.greeted('allUsers').then((result) => {
 
+            res.render('greeted', result);
 
-    //  = greetings.namesGreeted;
+        })
+        .catch((err) => console.error(err))
 });
 
 app.get('/counter/:user', function (req, res) {
     let userName = req.params.user;
 
-    greetings.greeted(userName).then((res) => {
-        console.log(res);
-        fullPage.greetedUsers = res
-    })
-    res.render('counter', fullPage);
+    greetings.greeted(userName).then((result) => {
+            res.render('counter', result);
+        })
+        .catch((err) => console.error(err))
 });
 
 app.post('/greet', function (req, res) {
@@ -99,11 +82,13 @@ app.post('/greet', function (req, res) {
     greetings.language(req.body.radioLang);
     greetings.greet();
     fullPage.userData.greeting = greetings.greetData.greeting;
-    greetings.counter().then((res) => {
-        fullPage.other.counter = res;
-    });
-    fullPage.greetedUsers = greetings.namesGreeted;
-    res.redirect('/');
+    greetings.counter().then((result) => {
+            fullPage.other.counter = result;
+            fullPage.greetedUsers = greetings.namesGreeted;
+            // res.render('home', result);
+            res.redirect('/');
+        })
+        .catch((err) => console.error(err))
 });
 
 //FIRE TO THE SERVER  
@@ -111,3 +96,5 @@ app.post('/greet', function (req, res) {
 app.listen(PORT, function () {
     console.log('greetings-webapp listening on port : ', PORT)
 });
+
+//
