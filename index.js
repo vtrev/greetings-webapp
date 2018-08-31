@@ -7,16 +7,14 @@ let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3030;
 // let session = require('express-session');
 const flash = require('express-flash');
-let greetingsModule = require('./GreetFactory');
+let greetingsModule = require('./services/GreetFactory');
 
 
 let fullPage = {
     userData: {
         greeting: 'Hello World!'
     },
-    other: {
-        counter: 0
-    }
+    counter: 0
 }
 // DB Setup
 
@@ -52,42 +50,30 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Routes
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
+    fullPage.counter = await greetings.getCounter();
     res.render('home', fullPage);
 });
 
-app.get('/greeted', function (req, res) {
+app.get('/greeted', async function (req, res) {
+    let result = await greetings.greetedUsers('allUsers');
+    res.render('greeted', {
+        users: result
+    });
 
-    greetings.greeted('allUsers').then((result) => {
-            res.render('greeted', {
-                'users': result
-            });
-        })
-        .catch((err) => console.error(err))
 });
 
-app.get('/counter/:user', function (req, res) {
+app.get('/counter/:user', async function (req, res) {
     let userName = req.params.user;
-
-    greetings.greeted(userName).then((result) => {
-            res.render('counter', result);
-        })
-        .catch((err) => console.error(err))
+    let result = await greetings.greetedUsers(userName);
+    res.render('counter', result);
 });
 
-app.post('/greet', function (req, res) {
+app.post('/greet', async function (req, res) {
     greetings.name(req.body.userEnteredName);
     greetings.language(req.body.radioLang);
-    greetings.greet();
-    fullPage.userData.greeting = greetings.greetData.greeting;
-
-    greetings.counter().then((result) => {
-            console.log(result);
-            fullPage.other.counter = result;
-            fullPage.greetedUsers = greetings.namesGreeted;
-            res.redirect('/');
-        })
-        .catch((err) => console.error(err))
+    fullPage.userData.greeting = await greetings.greet();
+    res.redirect('/');
 });
 
 //FIRE TO THE SERVER  
