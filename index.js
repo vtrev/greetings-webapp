@@ -24,10 +24,10 @@ const {
     Pool
 } = require('pg');
 const pool = new Pool({
-    user: 'coder',
-    host: '127.0.0.1',
-    database: 'greetings',
-    password: '8423',
+    user: 'lryyjklbkpoyvv',
+    host: 'ec2-54-225-92-1.compute-1.amazonaws.com',
+    database: 'dvpi1u6n33sj8',
+    password: '2e8ef2ec5aad80551c6997707d10ab7ca405410e7c8a9233d283614b0c059d18',
     port: 5432
 });
 let greetings = greetingsModule(pool);
