@@ -5,7 +5,7 @@ let express = require('express');
 let app = express();
 let exphbs = require('express-handlebars');
 let PORT = process.env.PORT || 3030;
-// let session = require('express-session');
+let session = require('express-session');
 const flash = require('express-flash');
 let greetingsModule = require('./services/GreetFactory');
 
@@ -33,11 +33,11 @@ const pool = new Pool({
 let greetings = greetingsModule(pool);
 
 
-// app.use(session({
-//     secret: '123'
-// }));
+app.use(session({
+    secret: '123'
+}));
 
-// app.use(flash());
+app.use(flash());
 
 app.engine('handlebars', exphbs({
     defaultLayout: 'main',
@@ -50,10 +50,28 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Routes
+
+
 app.get('/', async function (req, res) {
     fullPage.counter = await greetings.getCounter();
     res.render('home', fullPage);
 });
+
+app.post('/greet', async function (req, res) {
+
+    if ((req.body.userEnteredName.length == 0) || (req.body.radioLang == undefined)) {
+        req.flash('info', 'Please type in your name and choose a language first');
+        res.redirect('/');
+
+    } else {
+        greetings.name(req.body.userEnteredName);
+        greetings.language(req.body.radioLang);
+        fullPage.userData.greeting = await greetings.greet();
+        res.redirect('/');
+    }
+
+});
+
 
 app.get('/greeted', async function (req, res) {
     let result = await greetings.greetedUsers('allUsers');
@@ -69,12 +87,10 @@ app.get('/counter/:user', async function (req, res) {
     res.render('counter', result);
 });
 
-app.post('/greet', async function (req, res) {
-    greetings.name(req.body.userEnteredName);
-    greetings.language(req.body.radioLang);
-    fullPage.userData.greeting = await greetings.greet();
-    res.redirect('/');
+app.get('/admin', async function (req, res) {
+    res.render('admin');
 });
+
 
 //FIRE TO THE SERVER  
 

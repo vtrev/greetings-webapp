@@ -1,31 +1,32 @@
-<div class="row center">
-    <div class="col-12" id="p1">
-
-
-        <p>Hello and welcome! Choose a language, enter your name in the textbox below ,hit greet! And you will be greeted in
-            your desired language.</p>
-    </div>
-</div>
-
-<div class="row center">
+<div class="row center" id="">
     <div class="col-12">
         <h1 id="displayName">{{this.userData.greeting}}</h1>
+        <h4 class="error-message">{{messages.info}}</h4>
     </div>
 
 </div>
+
+
 <div class="row center">
     <div class="col-3"></div>
-
     <div class="col-6 center">
         <form id="userInput" method="POST" action="/greet">
             <input id="inputBox" name="userEnteredName" type="" placeholder="Type in your name here" pattern="[a-zA-Z]+" title="Please enter only letters A-Z">
-            <div class=" col-12 radio-toolbar">
+
+            <br>
+            <div class="in-block col-12 radio-toolbar">
+
                 <input type="radio" name="radioLang" value="English" id="1">
-                <label for="1"> English</label>
+
+                <label for="1"></label>
+                <span>English | </span>
                 <input type="radio" name="radioLang" value="Zulu" id="2">
-                <label for="2">isiZulu</label>
+
+                <label for="2"></label>
+                <span>isiZulu | </span>
                 <input type="radio" name="radioLang" value="Tsonga" id="3">
-                <label for="3">xiTsonga</label>
+                <label for="3"></label>
+                <span>xiTsonga</span>
             </div>
         </form>
     </div>
@@ -42,14 +43,6 @@
 
 
 <div class="row center ">
-    <div class="col-6" id="counterAndResetBox">
-        <p class="">
-            <strong>Counter : &nbsp;
-                <span id="countNumber">{{counter}}</span>
-            </strong>
-        </p>
-        <button id="resetBtn">Reset</button>
-    </div>
     <div class="col-6" id="greetBox">
         <!-- <button id="greetBtn" type="submit" form="form1" value="Submit">
                 <strong>Greet!</strong>
@@ -67,13 +60,11 @@
     </div>
 </div>
 <div class="entry">
-    <h1>{{messages.info}}</h1>
 </div>
-
-<div class="row">
-    <div class="col-12">
-        <a href="/greeted">
-            <button>Greeted Users</button>
-        </a>
-    </div>
+<div class="center">
+    <p id="counter-p">
+        <strong>
+            <span id="countNumber">{{counter}}</span> Users have been greeted on this app.
+        </strong>
+    </p>
 </div>

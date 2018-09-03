@@ -3,9 +3,7 @@
         <h2>Greeted Users</h2>
         {{#each this.users}}
         <a href="/counter/{{username}}">
-            <li>{{username}}&nbsp&nbsp&nbsp
-                <i class="far fa-check-circle check"></i>
-            </li>
+            {{username}}
         </a>
         <hr> {{/each}}
     </div>

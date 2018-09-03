@@ -1,11 +1,4 @@
-/**
-*** SIMPLE GRID
-*** (C) ZACH COLE 2016
-**/
-
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic);
 /* UNIVERSAL */
-
 html,
 body {
   height: 100%;
@@ -15,18 +8,17 @@ body {
   left: 0;
   top: 0;
   font-size: 100%;
+  font-family: 'Lato', Helvetica, sans-serif;
 }
 
 /* ROOT FONT STYLES */
-
 * {
-  font-family: 'Lato', Helvetica, sans-serif;
+  /* font-family: 'Lato', Helvetica, sans-serif; */
   /* color: #333447; */
   line-height: 1.5;
 }
 
 /* TYPOGRAPHY */
-
 h1 {
   font-size: 2.5rem;
 }
@@ -52,8 +44,8 @@ h6 {
 }
 
 p {
-  font-size: 1.125rem;
-  font-weight: 200;
+  /* font-size: 1.125rem; */
+  /* font-weight: 200; */
   line-height: 1.8;
 }
 
@@ -70,7 +62,6 @@ p {
 }
 
 /* POSITIONING */
-
 .left {
   text-align: left;
 }
@@ -90,7 +81,6 @@ p {
 }
 
 /* ==== GRID SYSTEM ==== */
-
 .container {
   width: 90%;
   margin-left: auto;
@@ -182,10 +172,12 @@ p {
 }
 
 @media only screen and (max-width: 44.75em) {
+
   /* 540px */
   .container {
     width: 80%;
   }
+
   /*
     #inputBox {
         background-color: lime;
@@ -194,25 +186,21 @@ p {
 */
   #inputBox {
     border: 2px solid darkslategray;
-    border-radius: 25px;
     width: 50%;
     height: 50px;
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.4s;
   }
-  #counterAndResetBox {
-    position: relative;
-    top: 70px;
-    right: 10px;
-  }
+
   #greetBtn {
-    position: relative;
-    top: 1px;
+    /* position: rselative; */
+    /* top: 1px; */
   }
+
   #greetBox {
-    position: relative;
-    bottom: 110px;
+    /* position: relative; */
+    /* bottom: 110px; */
   }
 }
 
@@ -225,68 +213,79 @@ p {
 }
 
 @media only screen and (min-width: 59em) {
+
   /* 720px */
   .col-1 {
     width: 4.33%;
   }
+
   .col-2 {
     width: 12.66%;
   }
+
   .col-3 {
     width: 21%;
   }
+
   .col-4 {
     width: 29.33%;
   }
+
   .col-5 {
     width: 37.66%;
   }
+
   .col-6 {
     width: 46%;
   }
+
   .col-7 {
     width: 54.33%;
   }
+
   .col-8 {
     width: 62.66%;
   }
+
   .col-9 {
     width: 71%;
   }
+
   .col-10 {
     width: 79.33%;
   }
+
   .col-11 {
     width: 87.66%;
   }
+
   .col-12 {
     width: 96%;
   }
+
   .hidden-sm {
     display: block;
   }
 }
 
 @media only screen and (min-width: 60em) {
+
   /* 960px */
   .container {
     width: 75%;
     max-width: 60rem;
   }
-  /*
-    #inputBox {
-        background-color: black;
 
-    }
-*/
-  #greetBtn {
+  */ #greetBtn {
     border: 2px solid darkslategray;
     width: 230px;
     height: 60px;
     background-color: white;
     /* background: #333447; */
-    border-radius: 25px;
+    /* border-
+    radius: 25px; */
   }
+
   #counterAndResetBox {
     position: relative;
     right: 140px;
@@ -295,6 +294,69 @@ p {
 }
 
 /* ==========================Custom CSS here ===========================================*/
+/* 
+color pallete
+#E53D00 - Red
+#FFE900 - Yellow
+#FCFFF7 - White
+*/
+/* Navigation */
+.nav-wrapper {
+  margin-top: 10px;
+}
+
+nav {
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  top: 0;
+  background: blue;
+  z-index: 1;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 28px;
+  margin: 20px;
+  color: white;
+  border: 1px solid;
+  padding: 5px 10px;
+  position: relative;
+  top: 25px;
+}
+
+nav a:hover {
+  background: gray;
+  /* color: black; */
+}
+
+#logo {
+  float: left;
+}
+
+/* Footer */
+footer {
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  color: white;
+  background: blue;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+#love::before {
+  content: '\2665';
+}
+
+#love {
+  color: red;
+  font-size: 32px;
+}
+
+body {
+  margin-top: 80px;
+}
 
 .greeted a {
   text-decoration: none;
@@ -323,7 +385,6 @@ p {
 
 #inputBox {
   border: 2px solid darkslategray;
-  border-radius: 25px;
   width: 85%;
   min-width: 300px;
   height: 50px;
@@ -341,18 +402,11 @@ input {
 }
 
 button {
-  border: 2px solid darkslategray;
+  border: 1px solid darkslategray;
   width: 100px;
   height: 40px;
   background-color: white;
   /* background: #333447; */
-  border-radius: 25px;
-}
-
-#greetBtn {
-  position: relative;
-  bottom: 108px;
-  right: 19px;
 }
 
 #greetBtn:hover {
@@ -383,15 +437,12 @@ button:active {
     bottom: 50px;
 }
 */
-
-#p1 {
-  /*    width: 720px;*/
-}
-
+/* p {
+  display: inline-block;
+} */
 /*Radio buttons style*/
-
 .radio-toolbar {
-  margin: 10px;
+  margin-top: 10px;
 }
 
 .radio-toolbar input[type="radio"] {
@@ -401,12 +452,14 @@ button:active {
 .radio-toolbar label {
   display: inline-block;
   height: 10px;
-  /*    padding: 15px 15px;*/
-  padding: 0px 14px 16px 7px;
-  /*    font-family: Arial;*/
+  width: 10px;
   font-size: 16px;
-  border: 2px solid #444;
-  border-radius: 10px;
+  border: 1px solid gray;
+  border-radius: 50%;
+}
+
+.radio-toolbar span {
+  font-size: 18px;
 }
 
 .radio-toolbar label:hover {
@@ -414,29 +467,22 @@ button:active {
 }
 
 .radio-toolbar input[type="radio"]:checked+label {
-  background-color: darkturquoise;
-  border-color: black;
+  background-color: gray;
 }
 
-/* Product card */
-
-.user-card {
-  height: 400px;
-  width: 300px;
-  background: rgb(215, 214, 223);
-  border: 1px solid rgb(62, 62, 63);
-  border-radius: 25px;
-  padding-top: 30px;
+#counter-p {
+  font-size: 17px;
+  /* font-family: 'Aldrich'; */
 }
 
-.card-top {
-  height: 30%;
-  font-size: 120px;
-  padding-bottom: 50px;
+.error-message {
+  color: red;
 }
 
-.card-bottom {
-  font-size: px;
-  font-family: 'Share Tech Mono', monospace;
-  text-transform: uppercase;
+.admin-start {
+  margin-top: 25px;
+}
+
+.warning {
+  color: red;
 }
