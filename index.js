@@ -21,7 +21,7 @@ let fullPage = {
 const {
     Pool
 } = require('pg');
-Heroku pool
+// Heroku pool
 const pool = new Pool({
     user: 'lryyjklbkpoyvv',
     host: 'ec2-54-225-92-1.compute-1.amazonaws.com',
