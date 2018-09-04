@@ -1,3 +1,19 @@
 language : node_js
 node_js:
     "8.0.0"
+
+language: node_js
+
+env:
+     - DB=postgresql://vusi@localhost:5432/greetings
+node_js:
+        - "8.9.4"
+
+before_script:
+  - psql -c 'create database  greetings;' -U vusi
+  - psql -U vusi -d greetings -a -f query.sql
+
+addons:
+    apt:
+    packages:
+    - postgresql-server-dev-9.2
