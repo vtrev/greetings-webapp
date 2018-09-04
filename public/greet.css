@@ -319,7 +319,7 @@ nav a {
   font-size: 28px;
   margin: 20px;
   color: white;
-  border: 1px solid;
+  border: 3px double;
   padding: 5px 10px;
   position: relative;
   top: 25px;
