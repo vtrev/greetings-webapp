@@ -35,8 +35,8 @@ const pool = new Pool({
 
 // local pool
 // const pool = new Pool({
-//     user: 'vusi',
-//     host: '192.168.0.33',
+//     user: 'coder',
+//     host: '127.0.0.1',
 //     database: 'greetings',
 //     password: '8423',
 //     port: 5432

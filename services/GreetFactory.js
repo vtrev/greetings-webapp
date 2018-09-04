@@ -1,5 +1,5 @@
 module.exports = function (client) {
-    // placeholding object
+    // the client parameter in this function referes to a pool of clients and not only one
     let greetData = {
         name: '',
         lang: '',
@@ -90,7 +90,7 @@ module.exports = function (client) {
     let deleteUsers = async function () {
         let sql = ('DELETE FROM users');
         let result = await client.query(sql);
-        return await 'Reccords have been cleared successfully';
+        return await 'Reccords have been cleared successfully.';
     }
 
 

@@ -8,7 +8,9 @@ body {
   left: 0;
   top: 0;
   font-size: 100%;
-  font-family: 'Lato', Helvetica, sans-serif;
+  /* font-family: 'Lato', Helvetica, sans-serif; */
+  font-family: 'Nunito', sans-serif;
+  color: darkslategray;
 }
 
 /* ROOT FONT STYLES */
@@ -319,15 +321,15 @@ nav a {
   font-size: 28px;
   margin: 20px;
   color: white;
-  border: 3px double;
+  border: 4px double;
   padding: 5px 10px;
   position: relative;
   top: 25px;
 }
 
 nav a:hover {
-  background: gray;
-  /* color: black; */
+  /* background: white; */
+  color: darkturquoise;
 }
 
 #logo {
@@ -385,7 +387,7 @@ body {
 
 #inputBox {
   border: 2px solid darkslategray;
-  width: 85%;
+  width: 65%;
   min-width: 300px;
   height: 50px;
   -webkit-transition-duration: 0.4s;
@@ -489,4 +491,8 @@ button:active {
 
 .success {
   color: limegreen;
+}
+
+.greeted-pg {
+  font-size: 20px;
 }
