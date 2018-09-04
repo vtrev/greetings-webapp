@@ -18,12 +18,10 @@ let fullPage = {
 }
 // DB Setup
 
-// let connectionString = process.env.DATABASE_URL || 'postgres://vusi:8423@192.168.0.38:5432/greetings';
-
 const {
     Pool
 } = require('pg');
-// Heroku pool
+Heroku pool
 const pool = new Pool({
     user: 'lryyjklbkpoyvv',
     host: 'ec2-54-225-92-1.compute-1.amazonaws.com',
@@ -81,7 +79,8 @@ app.post('/greet', async function (req, res) {
         res.render('home', {
             userData: {
                 greeting: await greetings.greet()
-            }
+            },
+            counter: await greetings.getCounter()
         });
     };
 
