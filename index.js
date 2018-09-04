@@ -48,7 +48,7 @@ let greetings = greetingsModule(pool);
 
 
 app.use(session({
-    secret: '123'
+    secret: 'Tshimugaramafatha'
 }));
 
 app.use(flash());
@@ -78,9 +78,12 @@ app.post('/greet', async function (req, res) {
     } else {
         greetings.name(req.body.userEnteredName);
         greetings.language(req.body.radioLang);
-        fullPage.userData.greeting = await greetings.greet();
-        res.redirect('/');
-    }
+        res.render('home', {
+            userData: {
+                greeting: await greetings.greet()
+            }
+        });
+    };
 
 });
 
