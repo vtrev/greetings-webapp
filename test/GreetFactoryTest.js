@@ -4,6 +4,9 @@ const assert = require('assert');
 const greetings = require('../services/GreetFactory');
 const pg = require("pg");
 const Pool = pg.Pool;
+
+
+// local pool
 const pool = new Pool({
     user: 'vusi',
     host: '192.168.0.33',
@@ -11,6 +14,15 @@ const pool = new Pool({
     password: '8423',
     port: 5432
 });
+
+// Heroku pool
+// const pool = new Pool({
+//     user: 'lryyjklbkpoyvv',
+//     host: 'ec2-54-225-92-1.compute-1.amazonaws.com',
+//     database: 'dvpi1u6n33sj8',
+//     password: '2e8ef2ec5aad80551c6997707d10ab7ca405410e7c8a9233d283614b0c059d18',
+//     port: 5432
+// });
 
 const greet = greetings(pool);
 
@@ -89,6 +101,11 @@ describe('Greetings web app', function () {
         let result = await greet.greetedUsers('Vusi');
         assert.equal(result.greet_count, 4);
     });
-
+    // Testing for deletion
+    it('Should delete all records from the database', async function () {
+        let result = await greet.reset();
+        assert.equal(result, 'Reccords have been cleared successfully');
+        assert.equal(await greet.getCounter(), 0);
+    })
 
 });

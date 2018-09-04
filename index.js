@@ -63,8 +63,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Routes
-
-
 app.get('/', async function (req, res) {
     fullPage.counter = await greetings.getCounter();
     res.render('home', fullPage);
@@ -101,9 +99,14 @@ app.get('/counter/:user', async function (req, res) {
 });
 
 app.get('/admin', async function (req, res) {
-    res.render('admin');
+    res.render('admin')
 });
-
+app.post('/admin', async function (req, res) {
+    let message = await greetings.reset()
+    res.render('admin', {
+        message
+    });
+})
 
 //FIRE TO THE SERVER  
 

@@ -486,3 +486,7 @@ button:active {
 .warning {
   color: red;
 }
+
+.success {
+  color: limegreen;
+}

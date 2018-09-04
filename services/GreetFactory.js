@@ -63,7 +63,15 @@ module.exports = function (client) {
     let greetedUsers = async function (name) {
         let result = await client.query('SELECT * FROM users');
         if (name == 'allUsers') {
-            return await result.rows.reverse();
+            if (result.rowCount == 0) {
+                return [{
+                    message: 'Oops! No users have been greeted yet.'
+                }]
+
+            } else {
+                return await result.rows.reverse();
+            }
+
         } else {
             const params = [name];
             const sql = ('SELECT * FROM users WHERE username=$1');
@@ -78,6 +86,14 @@ module.exports = function (client) {
         let result = await client.query(sql);
         return result.rowCount
     };
+
+    let deleteUsers = async function () {
+        let sql = ('DELETE FROM users');
+        let result = await client.query(sql);
+        return await 'Reccords have been cleared successfully';
+    }
+
+
     return {
         language: setLang,
         name: setName,
@@ -85,7 +101,12 @@ module.exports = function (client) {
         format: fixName,
         greetData,
         getCounter: counter,
-        greetedUsers
+        greetedUsers,
+        reset: deleteUsers
     };
 };
+
+
+
+
 // =======================================================================EOF======================================================================

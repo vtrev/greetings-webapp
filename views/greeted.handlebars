@@ -1,7 +1,9 @@
 <div class="row center">
     <div class="col-12 greeted in-block">
         <h2>Greeted Users</h2>
+
         {{#each this.users}}
+        <h2>{{message}}</h2>
         <a href="/counter/{{username}}">
             {{username}}
         </a>
