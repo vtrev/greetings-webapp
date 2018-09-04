@@ -105,7 +105,7 @@ describe('Greetings web app', function () {
     // Testing for deletion
     it('Should delete all records from the database', async function () {
         let result = await greet.reset();
-        assert.equal(result, 'Reccords have been cleared successfully');
+        assert.equal(result, 'Reccords have been cleared successfully.');
         assert.equal(await greet.getCounter(), 0);
     })
 
